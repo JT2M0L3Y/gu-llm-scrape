@@ -34,3 +34,51 @@ if __name__ =="__main__":
    
     # calling function 
     scrape(site)
+
+'''
+url = 'https://www.gonzaga.edu'
+page = requests.get(url)
+
+# soup = BeautifulSoup(page.content, 'html.parser')
+
+# # extract all text from the base page
+# text = soup.get_text()
+# text_lst = text.split('\n')
+# cleaned_text = []
+# for text in text_lst:
+#   if len(text) > 0:
+#     cleaned_text.append(text)
+
+# print()
+
+# # find all links to other pages
+# links = []
+# for link in soup.find_all('a', href=True):
+#   links.append(link['href'])
+
+html = str(page.content, 'utf-8')
+
+soup = BeautifulSoup(html, 'html.parser')
+
+# scraping
+links = []
+for link in soup.find_all('a', href=True):
+  links.append(link['href'])
+
+# look at text on each link
+for link in links:
+  if 'http' in link:
+    continue
+
+  url = 'https://www.gonzaga.edu' + link
+  page = requests.get(url)
+  html = str(page.content, 'utf-8')
+  soup = BeautifulSoup(html, 'html.parser')
+  text = soup.get_text()
+  text_lst = text.split('\n')
+  cleaned_text = []
+  for text in text_lst:
+    if len(text) > 0:
+      cleaned_text.append(text)
+  print(cleaned_text)
+'''
