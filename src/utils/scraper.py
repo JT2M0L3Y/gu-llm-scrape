@@ -1,7 +1,6 @@
-# BeautifulSoup attempt at web scraping
-
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
 
 def scrape(site):
     urls = []
@@ -25,8 +24,11 @@ def scrape(site):
         except:
             pass
     
-    # write text data to file
-    with open('data.txt', 'w') as f:
-        f.write(text)
+    # convert text string to dataframe
+    text = text.split('\n')
+    text = pd.DataFrame(text, columns=['text'])
 
-scrape('https://www.gonzaga.edu')
+    # return text data
+    return text
+
+print(scrape('https://www.gonzaga.edu'))

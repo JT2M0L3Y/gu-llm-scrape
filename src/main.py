@@ -1,7 +1,8 @@
 import base64
 
-from gcp_utils.infrastructure_setup import create_bucket
-from gcp_utils.helper_functions import write_bucket
+from utils.infrastructure_setup import create_bucket
+from utils.helper_functions import write_bucket
+from utils.scraper import scrape
 
 def handler(event, context):
     '''
@@ -15,11 +16,17 @@ def handler(event, context):
     '''
     # log the received pubsub message
     pubsub_message = base64.b64decode(event['data']).decode('utf-8')
-    print(pubsub_message)
+    print(f'This pipeline will scrape {pubsub_message}')
 
     # create a bucket in GCS
     bucket_name = 'gonzaga-scraper-bucket'
     create_bucket(bucket_name)
 
+    # scrape website data
+    # data = scrape(pubsub_message)
+
+    # for testing purposes, the pubsub message (website to scrape) is used as data
+    data = pubsub_message
+
     # write data to GCS
-    write_bucket(bucket_name, pubsub_message)
+    write_bucket(bucket_name, data)
