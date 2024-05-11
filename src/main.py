@@ -2,7 +2,7 @@ import base64
 
 from utils.infrastructure_setup import create_bucket
 from utils.helper_functions import write_bucket
-from utils.scraper import scrape
+# from utils.scraper import scrape
 
 def handler(event, context):
     '''

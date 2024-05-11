@@ -1,5 +1,6 @@
 scrape:
 	echo "Scraping data from the web"
+	python3 web_scraper/scraper.py
 
 zip-scraper:
 	cd src && zip -r ../bin/scraper.zip *
